@@ -5,10 +5,14 @@ from random import randint
 ## Defining global Variables:
 
 result = 'null'
-menu = '\nRoll a die!\n\n1  ==> Coin flip\n2  ==> d4\n3  ==> d6\n4  ==> d8\n5  ==> d10\n6  ==> d12\n7  ==> d20\n8  ==> d100\n9  ==> d20 with no 1 or 20\n10 ==> d20 with advantage\n\nm => Show this menu\nq => Quit \n'
-addl_menu = '\nfc  ==> force a critical, either 1 or 20'
+menu = '\nRoll a die!\n\n1  ==> Coin flip\n2  ==> d4\n3  ==> d6\n4  ==> d8\n5  ==> d10\n6  ==> d12\n7  ==> d20\n8  ==> d100\n\nm => Show this menu\na => Show additional options menu\nq => Quit \n'
+addl_menu = '\nfc ==> force a critical, either a 1 or 20\ncd ==> Roll custom die\n9  ==> d20 with no 1 or 20\n10 ==> d20 with advantage\n11 ==> d20 with disadvantage\n'
 crit = [1,20]
 run = True
+custom_die = 'null'
+cd_sides = 'null'
+
+
 
 print(menu)
 while run == True:
@@ -78,7 +82,27 @@ while run == True:
 		if result in crit:
 			print(f'\n-==|=====>CRITICAL<=====|==-\n|--~-~-~     {result}     ~-~-~---|\n-==|=====>CRITICAL<=====|==-')
 		else:
-			print(f'You rolled a {result}')
+			print(f'\nYou rolled a {result}')
+	## Rolling a d20 with disadvantage
+	elif selection == '11':
+		## Calculating advantage
+		num1 = randint(1,20)
+		num2 = randint(1,20)
+		if num2 > num1:
+			result = num1
+		else:
+			result = num2
+		if result in crit:
+			print(f'\n-==|=====>CRITICAL<=====|==-\n|--~-~-~     {result}     ~-~-~---|\n-==|=====>CRITICAL<=====|==-')
+		else:
+			print(f'\nYou rolled a {result}')
+
+	## Rolling the custom die
+	elif selection == 'cd':
+		cd_sides = int(input('How many sides?: '))
+		result = randint(1,cd_sides)
+		print(f'\nYou rolled a {result}')
+
 
 	## Special Settings
 	elif selection == 'm':
@@ -86,6 +110,11 @@ while run == True:
 
 	elif selection == 'q':
 		run = False
+
+	elif selection == 'a':
+		print(addl_menu)
+
+
 
 		##  +++++++++++++++++++++++++++++++++++++++++
 		##  + This section exits mainly for testing +
@@ -102,12 +131,10 @@ while run == True:
 		if result in crit:
 			print(f'\n-==|=====>CRITICAL<=====|==-\n|--~-~-~     {result}     ~-~-~---|\n-==|=====>CRITICAL<=====|==-')
 		else:
-			print(f'You rolled a {result}!')
+			print(f'\nYou rolled a {result}!')
 
 
 	else:
-		print("Input not recognized")
-
-
+		print("\nInput not recognized\n")
 
 
